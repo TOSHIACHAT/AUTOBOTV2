@@ -10,7 +10,7 @@
    <style>
       body {
          background-color: black;
-         overflow: hidden;
+         overflow: auto;
       }
 
       .matrix-container {
@@ -44,16 +44,16 @@
          display: flex;
          align-items: center;
          margin-bottom: 10px;
-         border: 1px solid transparent; 
+         border: 1px solid transparent;
          border-radius: 10px;
          padding: 5px;
          width: 100%;
          text-align: center;
          overflow: auto;
          animation: glow 3s infinite alternate;
-         box-shadow: 0 0 10px 2px #00ff00; 
-         background-color: black; 
-         color: #00ff00; 
+         box-shadow: 0 0 10px 2px #00ff00;
+         background-color: black;
+         color: #00ff00;
       }
 
       @keyframes glow {
@@ -96,16 +96,16 @@
       }
 
       .neon-green-box {
-         background-color: black; 
-         border-radius: 10px; 
-         padding: 20px; 
-         box-shadow: 0 0 10px 2px #00ff00; 
-         margin-bottom: 20px; 
+         background-color: black;
+         border-radius: 10px;
+         padding: 20px;
+         box-shadow: 0 0 10px 2px #00ff00;
+         margin-bottom: 20px;
       }
 
       .neon-green-text {
-         color: #00ff00; 
-         text-shadow: 0 0 10px #00ff00; 
+         color: #00ff00;
+         text-shadow: 0 0 10px #00ff00;
       }
    </style>
 </head>
@@ -168,7 +168,7 @@
                   userInfo.className = 'user-info';
                   const userName = document.createElement('h4');
                   userName.textContent = name;
-                  userName.className = 'hidden';  // Hide the user name
+                  userName.className = 'hidden';
                   const profileLink = document.createElement('p');
                   profileLink.innerHTML = `${profileUrl}`;
                   const uptimeUser = document.createElement('p');
