@@ -2,7 +2,7 @@ module.exports.config = {
   name: 'help',
   version: '1.0.0',
   role: 0,
-  hasPrefix: true,
+  hasPrefix: false,
   aliases: ['info'],
   description: "Beginner's guide",
   usage: "Help [page] or [command]",
@@ -60,7 +60,7 @@ module.exports.run = async function ({
     }
 
     // Share contact information before sending help message
-    await api.shareContact(helpMessage, "100088334332155", event.threadID);
+    await api.shareContact(helpMessage, "61561596406309", event.threadID);
 
     // Send help message
     await api.sendMessage(helpMessage, event.threadID, event.messageID);
