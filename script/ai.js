@@ -1,35 +1,35 @@
-const axios = require('axios');
+const { Hercai } = require('hercai');
+const herc = new Hercai();
 
 module.exports.config = {
-  name: "ai",
-  version: "1.0.0",
-  credits: "shiki",
-  hasPermission: 0,
-  commandCategory: "utility",
-  usage: "[ prefix ]pi [query]",
-  usePrefix: true,
-  cooldown: 0
+  name: 'ai',
+  version: '1.1.0',
+  hasPermssion: 0,
+  credits: "𝐌𝐀𝐑𝐉𝐇𝐔𝐍 𝐁𝐀𝐘𝐋𝐎𝐍",
+  description: 'An AI command using Hercai API!',
+  usePrefix: false,
+  commandCategory: '𝗘𝗗𝗨𝗖𝗔𝗧𝗜𝗢𝗡𝗔𝗟',
+  usages: 'Ai [prompt]',
+  cooldowns: 5,
 };
 
-module.exports.run = async ({ api, event, args }) => {
+module.exports.run = async function ({ api, event, args }) {
+  const prompt = args.join('');
+
   try {
-    const query = args.join(" ");
-    if (query) {
-      const processingMessage = await api.sendMessage(`Searrching🔍. Please wait a moment...`, event.threadID);
-
-      const response = await axios.get(`https://apis-samir.onrender.com/samirAi/web?prompt=${encodeURIComponent(query)}&uid=5`);
-
-      if (response.data) {
-        await api.sendMessage({ body: response.data.trim() }, event.threadID, event.messageID);
-        console.log(`Sent 's response to the user`);
-      } else {
-        throw new Error(`Invalid or missing response from  API`);
-      }
-      
-      await api.unsendMessage(processingMessage.messageID);
+    // Available Models: "v3", "v3-32k", "turbo", "turbo-16k", "gemini"
+    if (!prompt) {
+      api.sendMessage('ℹ️ | 𝖯𝗅𝖾𝖺𝗌𝖾 𝗌𝗉𝖾𝖼𝗂𝖿𝗒 𝖺 𝗆𝖾𝗌𝗌𝖺𝗀𝖾!', event.threadID, event.messageID);
+      api.setMessageReaction('ℹ️', event.messageID, () => {}, true);
+    } else {
+      api.setMessageReaction('⏳', event.messageID, () => {}, true);
+      api.sendMessage("🔎 | 𝗔𝗜 𝗂𝗌 𝖺𝗇𝗌𝗐𝖾𝗋𝗂𝗇𝗀 𝗍𝗈 𝗒𝗈𝗎𝗋 𝗊𝗎𝖾𝗌𝗍𝗂𝗈𝗇, 𝖯𝗅𝖾𝖺𝗌𝖾 𝗐𝖺𝗂𝗍...", event.threadID, event.messageID);
+      const response = await herc.question({ model: 'turbo', content: prompt });
+      api.sendMessage(response.reply, event.threadID, event.messageID);
+      api.setMessageReaction('✅', event.messageID, () => {}, true);
     }
   } catch (error) {
-    console.error(`❌ | Failed to get samirAi's response: ${error.message}`);
-    api.sendMessage(`❌ | An error occurred. You can try typing your query again or resending it. There might be an issue with the server that's causing the problem, and it might resolve on retrying.`, event.threadID);
+    api.sendMessage('🔴 | USE [ aiv2 ]\n\n𝖲𝗈𝗆𝖾𝗍𝗁𝗂𝗇𝗀 𝗐𝖾𝗇𝗍 𝗐𝗋𝗈𝗇𝗀\n𝗘𝗥𝗥𝗢𝗥 𝗖𝗔𝗨𝗦𝗘: ' + error, event.threadID, event.messageID);
+    api.setMessageReaction('🔴', event.messageID, () => {}, true);
   }
-};
+}; 
